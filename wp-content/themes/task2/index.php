@@ -22,56 +22,54 @@
 <!--header-->
     <div class="main-content inner bg-home"  id="home">
     <br>
+
         <nav class="navbar navbar-expand-lg navbar-light navPadding ">
             <a class="navbar-brand padding-left" href="#home"><img src="<?php echo get_template_directory_uri() ?>/images/logo.png"></a>
             <button  class="navbar-toggler btn-nav" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon" ></span>
             </button>
+
             <div class="collapse navbar-collapse text-right" id="navbarNav">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item">
+                    <?php $menuLocations = get_nav_menu_locations(); // Get our nav locations (set in our theme, usually functions.php)
+                    // This returns an array of menu locations ([LOCATION_NAME] = MENU_ID);
+
+                    $menuID = $menuLocations['header-menu']; // Get the *primary* menu ID
+
+                    $primaryNav = wp_get_nav_menu_items($menuID);
+                    $i=0;
+                    foreach ( $primaryNav as $navItem ) {
+                        $i+=1;
+                        if ($i==1)
+                        {
+                            echo '   <li class="nav-item">
+                             <div class="menu-nav active_menu">
+                        <a class="nav-link " href="'.$navItem->url.'" title="'.$navItem->title.'"><p class="color-text-nav">'.$navItem->title.'</p></a>
+                             </div>
+                        </li>';
+                        }
+                        else
+                        {
+                            echo '   <li class="nav-item">
+                             <div class="menu-nav">
+                        <a class="nav-link " href="'.$navItem->url.'" title="'.$navItem->title.'"><p class="color-text-nav">'.$navItem->title.'</p></a>
+                             </div>
+                        </li>';
+                        }
+
+
+                    }
+                    ?>
+                   <!-- <li class="nav-item">
                         <div class="menu-nav active_menu">
                             <a class="nav-link " href="#home"><p class="color-text-nav">HOME</p></a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <div class="menu-nav">
-                        <a class="nav-link " href="#info"><p class="color-text-nav">INFO </p></a>
-                        </div>
-                    </li>
-
-                    <li class="nav-item">
-                        <div class="menu-nav">
-                        <a class="nav-link " href="#character"><p class="color-text-nav">THE BOOK SERIES</p> </a>
-                        </div>
-                    </li>
-                    <li class="nav-item ">
-                        <div class="menu-nav">
-                        <a class="nav-link  " href="#seeour"><p class="color-text-nav">SEE OUR</p> </a>
-                        </div>
 
                     </li>
-                    <li class="nav-item ">
-                        <div class="menu-nav">
-                        <a class="nav-link " href="#world"><p class="color-text-nav">WORLD </p></a>
-                        </div>
-
-                    </li>
-                    <li class="nav-item ">
-                        <div class="menu-nav">
-                        <a class="nav-link " href="#baraar"><p class="color-text-nav">BARAAR</p> </a>
-                        </div>
-
-                    </li>
-                    <li class="nav-item">
-                        <div class="menu-nav">
-                        <a class="nav-link " href="#crew"><p class="color-text-nav">THE CREW</p> </a>
-                        </div>
-
-                    </li>
+                    -->
                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                 </ul>
             </div>
+
         </nav>
         <br>
 		<?php $home = new WP_Query(array(
@@ -356,7 +354,7 @@ if($see_our->have_posts()): while($see_our->have_posts()):$see_our->the_post();
 ));
 if($bazaar->have_posts()): while($bazaar->have_posts()):$bazaar->the_post();
 ?>
-    <div id="baraar" class="bg-bazaar">
+    <div id="bazaar" class="bg-bazaar">
         <div class="divPadding">
             <div class="d-flex justify-content-center title-bg" >
                 <?php the_title(); ?>

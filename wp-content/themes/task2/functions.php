@@ -2,11 +2,15 @@
 
 add_theme_support( 'post-thumbnails' );
 
-function wpb_custom_new_menu() {
-    register_nav_menu('my-custom-menu',__( 'My Custom Menu' ));
+function register_my_menus() {
+    register_nav_menus(
+        array(
+            'header-menu' => __( 'Header Menu' ),
+            'extra-menu' => __( 'Extra Menu' )
+        )
+    );
 }
-add_action( 'init', 'wpb_custom_new_menu' );
-
-
+add_action( 'init', 'register_my_menus' );
 
 ?>
+
